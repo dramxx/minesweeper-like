@@ -72,6 +72,7 @@ const defuseBomb = (bomb, id) => {
   if (isSnowman) {
     noticeBoard.innerHTML = winMessage;
     currentSquare.innerHTML = "&#9924";
+    currentSquare.style.fontSize = "35px";
     [...document.getElementsByClassName("square")].forEach((square) =>
       resetSquare(square)
     );
@@ -84,7 +85,6 @@ const defuseBomb = (bomb, id) => {
 
     currentSquare.style.backgroundColor = "orange";
     currentSquare.innerHTML = "&#9760;";
-
     currentSquare.style.fontSize = "35px";
 
     resetSquare(currentSquare);
