@@ -9,7 +9,9 @@ let restartButton = `<button class="text" style="font-family: Hachi Maru Pop; ma
 
 let numberOfSquares = 100;
 let health = 100;
-let isDeath = false; // no use for this atm
+
+// no use for these atm
+let isDeath = false;
 let activeSquares = [];
 
 const messages = {
@@ -31,29 +33,33 @@ const messages = {
   winMessage: "ok,you won, but you still suck",
 };
 
+const useSquare = (id) => activeSquares.pop(id);
+
 const generateSquares = () => {
   while (numberOfSquares) {
     root.innerHTML += square;
     let currentSquare = root.lastChild;
 
     currentSquare.id = 101 - numberOfSquares;
+    activeSquares.push(101 - numberOfSquares);
     --numberOfSquares;
 
     if (numberOfSquares == 0) root.innerHTML += healthBar;
   }
 
   [...document.getElementsByClassName("square")].forEach((square) => {
-    let isBomb = Math.random() < 0.25;
+    let isBomb = Math.random() < 0.5;
 
     square.onmouseover = () => (square.style.backgroundColor = "whitesmoke");
     square.onmouseleave = () => (square.style.backgroundColor = "#C0C0C0");
-    square.onclick = () => defuseBomb(isBomb, square.id);
+    square.onclick = () => openSquare(isBomb, square.id);
   });
 };
 
-const defuseBomb = (bomb, id) => {
+const openSquare = (isBomb, id) => {
   let currentSquare = document.getElementById(id);
   let isSnowman = Math.random() < 0.05;
+  let isHearth = Math.random() < 0.1;
 
   if (isSnowman) {
     currentHealthBar = document.getElementById("health-bar");
@@ -70,7 +76,18 @@ const defuseBomb = (bomb, id) => {
     return;
   }
 
-  if (bomb) {
+  if (isHearth) {
+    currentSquare.innerHTML = "&#10084;";
+    currentSquare.style.fontSize = "35px";
+    currentSquare.style.color = "red";
+
+    useSquare(currentSquare.id);
+    resetSquare(currentSquare);
+    healPlayer();
+    return;
+  }
+
+  if (isBomb) {
     let randomMessage = Math.floor(
       Math.random() * messages.hitBombMessages.length
     );
@@ -80,6 +97,7 @@ const defuseBomb = (bomb, id) => {
     currentSquare.innerHTML = "&#9760;";
     currentSquare.style.fontSize = "35px";
 
+    useSquare(currentSquare.id);
     resetSquare(currentSquare);
     doDamage();
   } else {
@@ -91,6 +109,7 @@ const defuseBomb = (bomb, id) => {
     currentSquare.style.backgroundColor = "transparent";
     currentSquare.style.border = "none";
 
+    useSquare(currentSquare.id);
     resetSquare(currentSquare);
   }
 };
@@ -108,7 +127,7 @@ const doDamage = () => {
   health -= 20;
   currentHealthBar.style.width = health + "%";
 
-  if (health == 0) {
+  if (health <= 0) {
     noticeBoard.innerHTML = messages.looseMessage;
     isDeath = true;
     root.style.display = "none";
@@ -117,6 +136,13 @@ const doDamage = () => {
   }
 };
 
-generateSquares();
+const healPlayer = () => {
+  currentHealthBar = document.getElementById("health-bar");
 
-//TODO: maintain array of opened squares
+  if (health == 100) return;
+
+  health += 10;
+  currentHealthBar.style.width = health + "%";
+};
+
+generateSquares();
