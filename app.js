@@ -42,7 +42,7 @@ const generateSquares = () => {
   }
 
   [...document.getElementsByClassName("square")].forEach((square) => {
-    let isBomb = Math.floor(Math.random() * 100) % 4 === 0;
+    let isBomb = Math.random() < 0.25;
 
     square.onmouseover = () => (square.style.backgroundColor = "whitesmoke");
     square.onmouseleave = () => (square.style.backgroundColor = "#C0C0C0");
