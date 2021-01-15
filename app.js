@@ -24,17 +24,17 @@ const messages = {
     "eat it!",
     "in your face",
     "get rekt!",
-    "nice try, sucker",
+    "nice try, ohohoho",
   ],
   defuseMessages: [
     "close one",
     "lucky",
     "okay",
     "whatever",
-    "youll die anyway",
+    "no chance, anyway",
   ],
-  looseMessage: "you suck, looser!",
-  winMessage: "ok,you won, but you still suck",
+  looseMessage: "LOOOSER!!",
+  winMessage: "you won, looser!",
 };
 
 const generateSquares = () => {
