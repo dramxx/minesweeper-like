@@ -43,6 +43,7 @@ const generateSquares = () => {
 
   [...document.getElementsByClassName("square")].forEach((square) => {
     let isBomb = Math.floor(Math.random() * 100) % 4 === 0;
+
     square.onmouseover = () => (square.style.backgroundColor = "whitesmoke");
     square.onmouseleave = () => (square.style.backgroundColor = "#C0C0C0");
     square.onclick = () => defuseBomb(isBomb, square.id);
@@ -72,8 +73,8 @@ const defuseBomb = (bomb, id) => {
     let randomMessage = Math.floor(
       Math.random() * messages.hitBombMessages.length
     );
-    noticeBoard.innerHTML = messages.hitBombMessages[randomMessage];
 
+    noticeBoard.innerHTML = messages.hitBombMessages[randomMessage];
     currentSquare.style.backgroundColor = "orange";
     currentSquare.innerHTML = "&#9760;";
     currentSquare.style.fontSize = "35px";
@@ -84,8 +85,8 @@ const defuseBomb = (bomb, id) => {
     let randomMessage = Math.floor(
       Math.random() * messages.defuseMessages.length
     );
-    noticeBoard.innerHTML = messages.defuseMessages[randomMessage];
 
+    noticeBoard.innerHTML = messages.defuseMessages[randomMessage];
     currentSquare.style.backgroundColor = "transparent";
     currentSquare.style.border = "none";
 
@@ -116,3 +117,5 @@ const doDamage = () => {
 };
 
 generateSquares();
+
+//TODO: maintain array of opened squares
