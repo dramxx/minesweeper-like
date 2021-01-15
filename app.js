@@ -2,14 +2,15 @@ let root = document.getElementById("root");
 let wrapper = document.getElementById("wrapper");
 let noticeBoard = document.getElementById("notice-board");
 
-let deathScreen = `<div style="font-size: 500px; font-color: #333">&#9760;</div>`;
-let square = `<div class="square" style="width: 60px; height: 60px; margin: 0px 1.5px; border: 1px solid #333; background-color: #C0C0C0; display: flex; justify-content: center; align-items: center; font-family: Hack; font-size: 17px; cursor: pointer;" />`;
-let healthBar = `<div id="health-bar" style="width: 100%; height: 50px; background-color: red; margin-top: 50px;"/>`;
-let restartButton = `<button style="margin-top: 25px; cursor: pointer; width: 170px; height: 55px; font-size: 20px; background-color: whitesmoke; border-radius: 5px;" onClick="window.location.reload();">restart this shit</button>`;
+let deathScreen = `<div style="font-size: 300px; font-color: #333">&#9760;</div>`;
+let square = `<div class="square" style="width: 45px; height: 45px; margin: 1.5px 1.5px; border: 1px solid #333; background-color: #C0C0C0; display: flex; justify-content: center; align-items: center; font-family: Hack; font-size: 17px; cursor: pointer;" />`;
+let healthBar = `<div id="health-bar" style="box-shadow: 0 2px 10px #333; width: 100%; height: 50px; background-color: red; margin-top: 50px;"/>`;
+let restartButton = `<button class="text" style="font-family: Hachi Maru Pop; margin-top: 25px; cursor: pointer; width: 270px; height: 65px; font-size: 20px; background-color: whitesmoke; border-radius: 5px;" onClick="window.location.reload();">restart this shit</button>`;
 
 let numberOfSquares = 100;
 let health = 100;
-let isDeath = false;
+let isDeath = false; // no use for this atm
+let activeSquares = [];
 
 const messages = {
   hitBombMessages: [

@@ -1,3 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&display=swap");
+
+:root {
+  --backgroundSize: 300px;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -9,17 +15,21 @@ body {
   height: 100vh;
   width: 100%;
   user-select: none;
+  font-family: "Hachi Maru Pop";
+
+  background-image: url(snow.jpg);
+  background-size: var(--backgroundSize);
+  animation: letItSnow 5s linear infinite;
 }
 
 .text {
   text-align: center;
-  font-size: 50px;
+  font-size: 35px;
   color: #333;
-  font-family: "Hack", "sans-serif";
 }
 
 h1 {
-  line-height: 150px;
+  line-height: 100px;
 }
 
 h2 {
@@ -36,18 +46,21 @@ h2 {
 #root {
   display: flex;
   flex-wrap: wrap;
-  width: 630px;
-  height: 630px;
+  width: 480px;
+  height: 480px;
 }
 
 #error {
   display: none;
 }
 
-#death {
-  width: 500px;
-  height: 500px;
-  display: none;
+@keyframes letItSnow {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: var(--backgroundSize) var(--backgroundSize);
+  }
 }
 
 @media (max-width: 630px) {
