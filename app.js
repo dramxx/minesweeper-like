@@ -2,6 +2,10 @@ let root = document.getElementById("root");
 let wrapper = document.getElementById("wrapper");
 let noticeBoard = document.getElementById("notice-board");
 
+const snowmanEmoji = "&#9924;";
+const skullEmoji = "&#9760;";
+const hearthEmoji = "&#10084;";
+
 let deathScreen = `<div style="font-size: 300px; font-color: #333">&#9760;</div>`;
 let square = `<div class="square" style="width: 45px; height: 45px; margin: 1.5px 1.5px; border: 1px solid #333; background-color: #C0C0C0; display: flex; justify-content: center; align-items: center; font-family: Hack; font-size: 17px; cursor: pointer;" />`;
 let healthBar = `<div id="health-bar" style="box-shadow: 0 2px 10px #333; width: 100%; height: 50px; background-color: red; margin-top: 50px;"/>`;
@@ -33,8 +37,6 @@ const messages = {
   winMessage: "ok,you won, but you still suck",
 };
 
-const useSquare = (id) => activeSquares.pop(id);
-
 const generateSquares = () => {
   while (numberOfSquares) {
     root.innerHTML += square;
@@ -65,7 +67,7 @@ const openSquare = (isBomb, id) => {
     currentHealthBar = document.getElementById("health-bar");
 
     noticeBoard.innerHTML = messages.winMessage;
-    currentSquare.innerHTML = "&#9924";
+    currentSquare.innerHTML = snowmanEmoji;
     currentSquare.style.fontSize = "35px";
     currentHealthBar.style.display = "none";
     wrapper.innerHTML += restartButton;
@@ -73,17 +75,19 @@ const openSquare = (isBomb, id) => {
     [...document.getElementsByClassName("square")].forEach((square) =>
       resetSquare(square)
     );
+
     return;
   }
 
   if (isHearth) {
-    currentSquare.innerHTML = "&#10084;";
+    currentSquare.innerHTML = hearthEmoji;
     currentSquare.style.fontSize = "35px";
     currentSquare.style.color = "red";
+    activeSquares.pop(currentSquare.id);
 
-    useSquare(currentSquare.id);
     resetSquare(currentSquare);
     healPlayer();
+
     return;
   }
 
@@ -94,10 +98,10 @@ const openSquare = (isBomb, id) => {
 
     noticeBoard.innerHTML = messages.hitBombMessages[randomMessage];
     currentSquare.style.backgroundColor = "orange";
-    currentSquare.innerHTML = "&#9760;";
+    currentSquare.innerHTML = skullEmoji;
     currentSquare.style.fontSize = "35px";
+    activeSquares.pop(currentSquare.id);
 
-    useSquare(currentSquare.id);
     resetSquare(currentSquare);
     doDamage();
   } else {
@@ -108,8 +112,8 @@ const openSquare = (isBomb, id) => {
     noticeBoard.innerHTML = messages.defuseMessages[randomMessage];
     currentSquare.style.backgroundColor = "transparent";
     currentSquare.style.border = "none";
+    activeSquares.pop(currentSquare.id);
 
-    useSquare(currentSquare.id);
     resetSquare(currentSquare);
   }
 };
@@ -141,7 +145,7 @@ const healPlayer = () => {
 
   if (health == 100) return;
 
-  health += 10;
+  health += 15;
   currentHealthBar.style.width = health + "%";
 };
 
